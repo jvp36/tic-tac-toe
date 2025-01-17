@@ -1,0 +1,62 @@
+:root {
+    --bg-color: #F5EFE7;
+    --border-grid-color: #213555;
+    --text-color: #3E5879;
+    --line-style: 5px solid var(--border-grid-color);
+}
+html {
+    box-sizing: border-box;
+}
+
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+body {
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: var(--bg-color);
+    /* User cannot select text */
+    user-select: none; 
+    height: 100vh;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+h1 {
+    margin: 0;
+    font-size: 3.5rem;
+    color: var(--text-color);
+}
+.gridContainer {
+    width: 300px;
+    height: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+        
+}
+.box {
+    background-color: transparent;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--text-color);    
+}
+.a1, .b1, .c1 {
+    border-right: var(--line-style);
+}
+.a3, .b3, .c3 {
+    border-left: var(--line-style);
+}
+.a1, .a2, .a3 {
+    border-bottom: var(--line-style);
+}
+.c1, .c2, .c3 {
+    border-top: var(--line-style);
+}
