@@ -10,9 +10,23 @@ const gameBoardModule = (function () {
   };
   return { updatePlay };
 })();
-//console.log(gameBoardModule.updatePlay(0, "X"));
-//console.log(gameBoardModule.updatePlay(3, 'O'));
-
+// Setting up the game winner decision
+const getWinner = (function(){ 
+  let winner = ""; 
+  const decision = function(play) {
+    if(play[0] !== "" && play[0] === play[1] && play[1] === play[2] || play[3] !== "" && play[3] === play[4] && play[4] === play[5] || play[6] !== "" && play[6] === play[7] && play[7] === play[8]) {
+      winner = "There is a horizontal winner";
+    } else if(play[0] !== "" && play[0] === play[3] && play[3] === play[6] || play[1] !== "" && play[1] === play[4] && play[4] === play[7] || play[2] !== "" && play[2] === play[5] && play[5] === play[8]) {
+      winner = "There is a vertical winner";
+    } else if(play[0] !== "" && play[0] === play[4] && play[4] === play[8] || play[2] !== "" && play[2] === play[4] && play[4] === play[6]) {
+      winner = "There are a diagonal winner";
+    } else {
+      winner = "There are not winner"
+    }
+    return winner;
+  }
+  return {decision}
+})(); 
 // Setting up the screen controler display driver Module
 const screenControlerModule = (function () {
   const x = "×";
@@ -27,11 +41,13 @@ const screenControlerModule = (function () {
           box.textContent = box.textContent;          
         } else if(stateOfPlay === "p1"){
           box.textContent = x;
-          gameBoardModule.updatePlay(box.id, x);
+          const play = gameBoardModule.updatePlay(box.id, x);
+          console.log(getWinner.decision(play));
           stateOfPlay = "p2";
           } else {
             box.textContent = o;
-            gameBoardModule.updatePlay(box.id, o);
+            const play = gameBoardModule.updatePlay(box.id, o);
+            console.log(getWinner.decision(play));
             stateOfPlay = "p1";
           }
       return box.textContent
