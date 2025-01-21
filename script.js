@@ -9,9 +9,11 @@ const gameBoardModule = (function () {
   };
   return { updatePlay };
 })();
+// End setting up the game board Module
+
 // Setting up the screen controler display driver Module
 const screenControlerModule = (function () {
-  const x = "×";
+  const x = "×";  
   const o = "○";
   $boxs = document.querySelectorAll(".box");
   const updateBox = function () {
@@ -84,7 +86,8 @@ const screenControlerModule = (function () {
             })
           }
         }
-        if (game.indexOf("") === -1) {
+        // There isn't winner
+        if (game.indexOf("") === -1 && winner === "") {
           winner = `There isn't winner`;
         }
         return winner;
@@ -94,6 +97,8 @@ const screenControlerModule = (function () {
   };
   return { updateBox };
 })();
+// End setting up the screen controler display driver Module
+
 screenControlerModule.updateBox();
 
 // Setting up player factory function
@@ -105,3 +110,4 @@ const createPlayer = function (name, selectedSymbol) {
   };
   return { getPlayerName, name, selectedSymbol };
 };
+// End setting up player factory function
