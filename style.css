@@ -1,8 +1,9 @@
 :root {
-    --bg-color: #F5EFE7;
-    --border-grid-color: #213555;
-    --text-color: #3E5879;
-    --line-style: 5px solid var(--border-grid-color);
+    --bg-color: #EAE2C6;
+    --header-color: #FBF5DD; 
+    --aside-color: #A6CDC6;    
+    --text-color: #16404d;
+    --line-style: 5px solid #DDA853;
 }
 html {
     box-sizing: border-box;
@@ -14,21 +15,72 @@ html {
 body {
     margin: 0;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: var(--bg-color);
+    color: var(--text-color); 
     /* User cannot select text */
     user-select: none; 
-    height: 100vh;  
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 375px 1fr;
+    grid-template-rows: 150px 1fr;
+    grid-template-areas:
+    "header header"
+    "aside main";     
+}
+img {
+    width: 50px;
+    color: #16404d;
+}
+.header img {
+    width: 100px;
+}
+
+h1, h2, p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 3.5rem;      
+}
+
+h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+legend {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header, .aside {
+    padding: 30px;
+}
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    grid-area: header;
+    background-color: var(--header-color);
+}
+.aside {
+    background-color: var(--aside-color);
+    grid-area: aside;
+}
+#player-two-form {
+    display: none;
+}
+.main {
+    background-color: var(--bg-color);
+    grid-area: main;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    row-gap: 20px;
 }
-h1 {
-    margin: 0;
-    font-size: 3.5rem;
-    color: var(--text-color);
-}
+
 .gridContainer {
     width: 300px;
     height: 300px;

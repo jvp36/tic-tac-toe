@@ -1,15 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" >
     <script src="script.js" defer></script>
-</head>
-<body>
-    <h1>Tic Tac Toe</h1>
-    <div class="gridContainer">
+  </head>
+  <body>
+    <header class="header">
+      <img
+        src="img/tic-tac-toe-with-hearts-svgrepo-com.svg"
+        alt="Tic Tac Toe Game"
+      >
+      <h1>Tic Tac Toe</h1>
+    </header>
+    <aside class="aside">
+			<h2>Let's play Tic Tac Toe</h2>
+			<form id="player-one-form">
+				<fieldset>
+					<legend>Your data</legend>
+					<div>
+						<label for="player-one-name">Name:</label>
+						<input type="text" placeholder="Your name" id="player-one-name" required >
+					</div>
+					<div>
+						<label for="player-one-symbol">Select your symbol:</label>							
+						<select id="player-one-symbol">
+							<option selected disabled></option>
+							<option value="cross" id="cross">×</option>
+							<option value="circle" id="cicle">○</option>
+							<option value="heart" id="heart">𖹭</option>
+							<option value="happy-face" id="happy-face">☺︎</option>
+						</select>
+					</div>
+					<div>						
+						<p>Choose your opponent</p>
+						<div>
+							<label for="human">Human:</label>
+							<input type="radio" name="opponent" id="human" checked >
+						</div>
+						<div>
+							<label for="machine">Computer:</label>
+							<input type="radio" name="opponent" id="machine" >
+						</div>
+						<input type="submit" value="Save" id="p-one-save">						
+					</div>
+				</fieldset>
+			</form>
+			<form id="player-two-form">
+				<fieldset>
+					<legend>Opponent data</legend>
+					<div>
+						<label for="opponent-name">Name:</label>
+						<input type="text" placeholder="Opponent name" id="opponent-name" required >
+					</div>
+					<div>
+						<label for="player-two-symbol">Select your symbol:</label>							
+						<select id="player-two-symbol">
+							<option selected disabled></option>
+							<option value="cross" id="cross1">×</option>
+							<option value="circle" id="circle1">○</option>
+							<option value="heart" id="heart1">𖹭</option>
+							<option value="happy-face" id="happy-face1">☺︎</option>
+						</select>
+					</div>
+						<input type="submit" value="Save" id="p-two-save">						
+					</div>
+				</fieldset>
+			</form>
+    </aside>
+    <main class="main">
+      <div class="gridContainer">
         <div class="box a1" id="0"></div>
         <div class="box a2" id="1"></div>
         <div class="box a3" id="2"></div>
@@ -19,6 +81,7 @@
         <div class="box c1" id="6"></div>
         <div class="box c2" id="7"></div>
         <div class="box c3" id="8"></div>
-    </div>
-</body>
+      </div>
+    </main>
+  </body>
 </html>
