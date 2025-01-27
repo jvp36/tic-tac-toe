@@ -13,32 +13,38 @@ const $crossOption = document.getElementById("cross1");
 const $circleOption = document.getElementById("circle1");
 const $heartOption = document.getElementById("heart1");
 const $happyFaceOption = document.getElementById("happy-face1");
+// Global variables for selected symbols
+let playerOneSymbol;
+let playerTwoSymbol;
+let playerOneName;
+let playerTwoName;
+// Global variables for selected symbols
+
 // Get player one data function
 const getPlayerOneData = function(e) {
   e.preventDefault();
-    let playerOneName = $playerOneName.value;
-    let symbolOne;
+    playerOneName = $playerOneName.value;    
     switch ($playerOneSymbol.value) {
       case "cross":
-      symbolOne = "×";
+      playerOneSymbol = "×";
       $crossOption.setAttribute("disabled", true);
       break;
     case "circle":
-      symbolOne = "○";
+      playerOneSymbol = "○";
       $circleOption.setAttribute("disabled", true);
       break;
     case "heart":
-      symbolOne = "𖹭";
+      playerOneSymbol = "𖹭";
       $heartOption.setAttribute("disabled", true);
       break;
     case "happy-face":
-      symbolOne = "☺︎";
+      playerOneSymbol = "☺︎";
       $happyFaceOption.setAttribute("disabled", true);
       break;
     default:
       break;
   }
-  const playerOne = createPlayer(playerOneName, symbolOne);
+  const playerOne = createPlayer(playerOneName, playerOneSymbol);
   if ($humanOpponent.checked) {
     $playerTwoForm.style.display = "block";
   }
@@ -50,26 +56,23 @@ const getPlayerOneData = function(e) {
 // get player two data function
 const getPlayerTwoData = function(e) {
   e.preventDefault();
-  let playerTwoName = $playerTwoName.value;
-  let symbolTwo;
-  e.preventDefault();
   playerTwoName = $playerTwoName.value;
   switch ($playerTwoSymbol.value) {
     case "cross":
-      symbolTwo = "×";
+      playerTwoSymbol = "×";
       break;
     case "circle":
-      symbolTwo = "○";
+      playerTwoSymbol = "○";
       break;
     case "heart":
-      symbolTwo = "𖹭";
+      playerTwoSymbol = "𖹭";
       break;
     case "happy-face":
-      symbolTwo = "☺︎";
+      playerTwoSymbol = "☺︎";
       break;
     default:
   }
-  const playerTwo = createPlayer(playerTwoName, symbolTwo);
+  const playerTwo = createPlayer(playerTwoName, playerTwoSymbol);
   console.log(playerTwo);
   console.log(playerTwo.selectedSymbol);
   console.log(playerTwo.name);
@@ -104,9 +107,7 @@ const gameBoardModule = (function () {
 // End setting up the game board Module
 
 // Setting up the screen controler display driver Module
-const screenControlerModule = (function () {
-  const x = "×";
-  const o = "○";
+const screenControlerModule = (function () {  
   $boxs = document.querySelectorAll(".box");
   const updateBox = function () {
     let stateOfPlay = "p1";
@@ -115,14 +116,14 @@ const screenControlerModule = (function () {
       if (e.target.textContent !== "") {
         e.target.textContent = e.target.textContent;
       } else if (stateOfPlay === "p1") {
-        e.target.textContent = x;
-        const game = gameBoardModule.updatePlay(e.target.id, x);
+        e.target.textContent = playerOneSymbol;
+        const game = gameBoardModule.updatePlay(e.target.id, playerOneSymbol);
         let player = stateOfPlay;
         console.log(getWinnerModule.decision(game, player));
         stateOfPlay = "p2";
       } else {
-        e.target.textContent = o;
-        const play = gameBoardModule.updatePlay(e.target.id, o);
+        e.target.textContent = playerTwoSymbol;
+        const play = gameBoardModule.updatePlay(e.target.id, playerTwoSymbol);
         let player = stateOfPlay;
         console.log(getWinnerModule.decision(play, player));
         stateOfPlay = "p1";
