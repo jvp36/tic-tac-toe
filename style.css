@@ -34,7 +34,7 @@ img {
     width: 100px;
 }
 
-h1, h2, p {
+h1, h2, h3, p {
     margin: 0;
 }
 
@@ -48,6 +48,9 @@ h2 {
     margin-bottom: 25px;
 }
 
+h3 {
+    font-size: 1.5rem;
+}
 legend {
     text-align: center;
     font-size: 1.5rem;
@@ -111,4 +114,7 @@ legend {
 }
 .c1, .c2, .c3 {
     border-top: var(--line-style);
+}
+#result {
+    display: none;
 }

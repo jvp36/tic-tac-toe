@@ -27,7 +27,7 @@
 					<div>
 						<label for="player-one-symbol">Select your symbol:</label>							
 						<select id="player-one-symbol">
-							<option selected disabled></option>
+							<option selected disabled value ="empty"></option>
 							<option value="cross" id="cross">×</option>
 							<option value="circle" id="cicle">○</option>
 							<option value="heart" id="heart">𖹭</option>
@@ -58,7 +58,7 @@
 					<div>
 						<label for="player-two-symbol">Select your symbol:</label>							
 						<select id="player-two-symbol">
-							<option selected disabled></option>
+							<option selected disabled value="empty"></option>
 							<option value="cross" id="cross1">×</option>
 							<option value="circle" id="circle1">○</option>
 							<option value="heart" id="heart1">𖹭</option>
@@ -82,6 +82,11 @@
         <div class="box c2" id="7"></div>
         <div class="box c3" id="8"></div>
       </div>
+	  <div id="result">
+		<h3 id="result-text"></h3>
+		<input type="submit" value="Play again" id="replay">
+		<input type="submit" value="Reload" id="reload">
+	  </div>
     </main>
   </body>
 </html>

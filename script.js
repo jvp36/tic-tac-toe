@@ -13,17 +13,28 @@ const $crossOption = document.getElementById("cross1");
 const $circleOption = document.getElementById("circle1");
 const $heartOption = document.getElementById("heart1");
 const $happyFaceOption = document.getElementById("happy-face1");
+// result variables
+const $result = document.getElementById("result");
+const $resultText = document.getElementById("result-text");
+const $playAgain = document.getElementById("replay");
+const $reload = document.getElementById("reload");
 // Global variables for selected symbols
 let playerOneSymbol;
 let playerTwoSymbol;
+// Global variables for selected names
 let playerOneName;
 let playerTwoName;
-// Global variables for selected symbols
-
 // Get player one data function
 const getPlayerOneData = function(e) {
   e.preventDefault();
-    playerOneName = $playerOneName.value;    
+  if($playerOneName.value.trim() === "") {
+    alert("The player name cannot is empty.")
+  } else {
+    playerOneName = $playerOneName.value; 
+  }
+  if($playerOneSymbol.value === "empty") {
+    alert("You shoud to select a symbol");
+  } else {
     switch ($playerOneSymbol.value) {
       case "cross":
       playerOneSymbol = "×";
@@ -43,9 +54,10 @@ const getPlayerOneData = function(e) {
       break;
     default:
       break;
-  }
+    }
+  }  
   const playerOne = createPlayer(playerOneName, playerOneSymbol);
-  if ($humanOpponent.checked) {
+  if ($humanOpponent.checked && $playerOneName.value.trim() !== "" && $playerOneSymbol.value !== "empty") {
     $playerTwoForm.style.display = "block";
   }
   console.log(playerOne);
@@ -56,7 +68,14 @@ const getPlayerOneData = function(e) {
 // get player two data function
 const getPlayerTwoData = function(e) {
   e.preventDefault();
-  playerTwoName = $playerTwoName.value;
+  if($playerTwoName.value.trim() === "") {
+    alert("The opponent name cannot is empty")
+  } else {
+    playerTwoName = $playerTwoName.value;
+  }
+  if($playerTwoSymbol.value === "empty") {
+    alert("Opponent shoud to select a symbol")
+  }
   switch ($playerTwoSymbol.value) {
     case "cross":
       playerTwoSymbol = "×";
@@ -100,6 +119,7 @@ const gameBoardModule = (function () {
   //place the symbol in the array according to the index
   const updatePlay = function (index, symbol) {
     gameBoard.splice(index, 1, symbol);
+    console.log(gameBoard);
     return gameBoard;
   };
   return { updatePlay };
@@ -118,13 +138,13 @@ const screenControlerModule = (function () {
       } else if (stateOfPlay === "p1") {
         e.target.textContent = playerOneSymbol;
         const game = gameBoardModule.updatePlay(e.target.id, playerOneSymbol);
-        let player = stateOfPlay;
+        let player = playerOneName;
         console.log(getWinnerModule.decision(game, player));
         stateOfPlay = "p2";
       } else {
         e.target.textContent = playerTwoSymbol;
         const play = gameBoardModule.updatePlay(e.target.id, playerTwoSymbol);
-        let player = stateOfPlay;
+        let player = playerTwoName;
         console.log(getWinnerModule.decision(play, player));
         stateOfPlay = "p1";
       }
@@ -145,6 +165,8 @@ const screenControlerModule = (function () {
             game[index] === game[index + 2]
           ) {
             winner = `The winner is ${player}`;
+            $resultText.textContent = winner;
+            $result.style.display = "block"; 
             $boxs.forEach((box) => {
               box.removeEventListener("click", addSymbol);
             });
@@ -158,6 +180,8 @@ const screenControlerModule = (function () {
             game[index] === game[index + 6]
           ) {
             winner = `The winner is ${player}`;
+            $resultText.textContent = winner;
+            $result.style.display = "block"; 
             $boxs.forEach((box) => {
               box.removeEventListener("click", addSymbol);
             });
@@ -174,6 +198,8 @@ const screenControlerModule = (function () {
               game[index] === game[index - 4])
           ) {
             winner = `The winner is ${player}`;
+            $resultText.textContent = winner;
+            $result.style.display = "block"; 
             $boxs.forEach((box) => {
               box.removeEventListener("click", addSymbol);
             });
@@ -182,6 +208,8 @@ const screenControlerModule = (function () {
         // There isn't winner
         if (game.indexOf("") === -1 && winner === "") {
           winner = `There isn't winner`;
+          $resultText.textContent = winner;
+          $result.style.display = "block"; 
         }
         return winner;
       };
@@ -191,6 +219,14 @@ const screenControlerModule = (function () {
   return { updateBox };
 })();
 // End setting up the screen controler display driver Module
+// Play again
+$playAgain.addEventListener("click", () => {
+  console.log("Plaing Again...");     
+})
+// Reload game
+$reload.addEventListener("click", () => {
+  location.reload();
+}) 
 
 screenControlerModule.updateBox();
 
