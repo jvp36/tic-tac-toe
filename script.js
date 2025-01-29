@@ -3,6 +3,7 @@ const $playerOneForm = document.getElementById("player-one-form");
 const $playerOneName = document.getElementById("player-one-name");
 const $playerOneSymbol = document.getElementById("player-one-symbol");
 const $humanOpponent = document.getElementById("human");
+const $machineOpponent = document.getElementById("machine");
 const $pOneSave = document.getElementById("p-one-save");
 //player two form variables
 const $playerTwoForm = document.getElementById("player-two-form");
@@ -24,6 +25,10 @@ let playerTwoSymbol;
 // Global variables for selected names
 let playerOneName;
 let playerTwoName;
+//Global variable for start with array of nine positions, each containing an empty string
+let gameBoard = new Array(9).fill("");
+//Global variable for the game to be started by player p1
+let stateOfPlay = "p1";
 // Get player one data function
 const getPlayerOneData = function(e) {
   e.preventDefault();
@@ -59,6 +64,10 @@ const getPlayerOneData = function(e) {
   const playerOne = createPlayer(playerOneName, playerOneSymbol);
   if ($humanOpponent.checked && $playerOneName.value.trim() !== "" && $playerOneSymbol.value !== "empty") {
     $playerTwoForm.style.display = "block";
+  } else if($machineOpponent.checked) {
+    playerTwoName = "Robot";
+    playerTwoSymbol = "☼";
+    alert("We can't play with a robot yet." + "\n" + "Please make the robot movements");
   }
   console.log(playerOne);
   console.log(playerOne.name);
@@ -114,8 +123,6 @@ const createPlayer = function (name, selectedSymbol) {
 // End setting up player factory function
 // Setting up the game board Module
 const gameBoardModule = (function () {
-  //start with array of nine positions, each containing an empty string
-  const gameBoard = new Array(9).fill("");
   //place the symbol in the array according to the index
   const updatePlay = function (index, symbol) {
     gameBoard.splice(index, 1, symbol);
@@ -129,8 +136,7 @@ const gameBoardModule = (function () {
 // Setting up the screen controler display driver Module
 const screenControlerModule = (function () {  
   $boxs = document.querySelectorAll(".box");
-  const updateBox = function () {
-    let stateOfPlay = "p1";
+  const updateBox = function () {    
     // add symbol function
     const addSymbol = function (e) {
       if (e.target.textContent !== "") {
@@ -220,9 +226,18 @@ const screenControlerModule = (function () {
 })();
 // End setting up the screen controler display driver Module
 // Play again
-$playAgain.addEventListener("click", () => {
-  console.log("Plaing Again...");     
-})
+$playAgain.addEventListener("click", () => {  
+  $boxs.forEach((box) => {
+    box.textContent = "";
+  })
+  $result.style.display = "none";
+  //Restart it with array of nine positions, each containing an empty string
+  gameBoard = new Array(9).fill("");
+  //The game is restarted by player p1
+  stateOfPlay = "p1";
+  screenControlerModule.updateBox();
+  console.log("Playing Again...");
+});
 // Reload game
 $reload.addEventListener("click", () => {
   location.reload();
